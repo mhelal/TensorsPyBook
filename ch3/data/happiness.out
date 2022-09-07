@@ -1,0 +1,850 @@
+ ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¸
+ ³                                                                            ³
+ ³     ±±±±±±Ü ±±Ü ±±Ü ±±±±±±Ü ±±Ü ±±Ü ±±±±±±Ü  ±±Ü     ±±±±±±Ü  ±±±±±±Ü      ³
+ ³      ß±±Ûßß ±±Û ±±Û ±±Ûßßßß ±±Û±±Ûß ±±Ûßß±±Ü ±±Û     ±±Ûßßßß   ßßß±±Û      ³
+ ³       ±±Û   ±±Û ±±Û ±±Û     ±±±±Ûß  ±±±±±±±Û ±±Û     ±±±±±±Ü   ±±±±±Û      ³
+ ³       ±±Û   ±±Û ±±Û ±±Û     ±±Û±±Ü  ±±Ûßß±±Û ±±Û       ßß±±Û    ßß±±Û      ³
+ ³       ±±Û   ±±±±±±Û ±±±±±±Ü ±±Û ±±Ü ±±Û  ±±Û ±±±±±±Ü ±±±±±±Û  ±±±±±±Û      ³
+ ³        ßß    ßßßßßß  ßßßßßß  ßß  ßß  ßß   ßß  ßßßßßß  ßßßßßß   ßßßßßß      ³
+ ³                 Three-way principal components analysis                    ³
+ ³                                                                            ³
+ ³     Copyright P.M. Kroonenberg                      LEIDEN UNIVERSITY      ³
+ ÔÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¾
+
+                       Date: 17-08-1999 ; Time: 08:31:14
+
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+                I N P U T   A N D   I N I T I A L I Z A T I O N
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+
+ Parameters will be read from file: 
+ D:\3WEGDATA\ANDERSON\CLOGGH~1\HAPPY_T3.SET                                     
+ Data will be read from file      : 
+ D:\3WEGDATA\ANDERSON\CLOGGH~1\HAPPYRES.IF3                                     
+ Output will be written to file   : 
+ D:\3WEGDATA\ANDERSON\CLOGGH~1\HAPPY_T3.OUT                                     
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                        I N P U T   P A R A M E T E R S
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ PARM     COL  VALUE                DESCRIPTION          OPTIONS
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ RECORD 1      TITLE FOR THE ANALYSIS
+
+ TITLE      1 Intermediate step for Anacor3                                           
+
+
+ RECORD 2      DATA SPECIFICATIONS -- (OBLIGATORY)
+
+ I          5     4  Number of levels in first mode
+ J         10     5  Number of levels in second mode
+ K         15     3  Number of levels in third mode
+ P         20     3  Number of components in first mode
+ Q         25     3  Number of components in second mode
+ R         30     2  Number of components in third mode
+ NUMMIS    35     0  Number of missing data points
+
+ RECORD 3      PRINT/PLOT OPTIONS FOR LINE PRINTER 
+
+ IPLOT      5     1  Plot of component loadings         0=no, 1=unit length
+                                                        2=Unit mean square
+                                                        3=PCA-scaled 
+ NOTES     10     1  Printing of notes                  0=no, 1=yes
+ INCONF    15     0  Printing of initial configuration  0=no, 1=yes
+
+ ITERPR    20     0  Printing of iteration table        0=no, 1=yes
+ ------    25      
+ IPRCOV    30     0  Printing of latent covar.matrix    0=no, 1=yes
+ ICONTR    35     0  Printing of contributions SS(FIT)  0=yes, 1=no
+ LABPRM    40   111  Labels for levels of modes         000 = no, 111 = all modes
+ PLROWS    45    43  Plot size: rows
+ PLCOLS    50    78  Plot size: columns
+ ASCUPP    55     0  Conversion of output               0=none; 1=ASCII only
+                                                        2=UPPER case; 3=1+2
+
+ RECORD 4      ANALYSIS OPTIONS
+
+ ICENTR     5     0  Centring:                          0=no
+                                                        1=double centring
+                                                        2=centre rows
+                                                        3=centre columns
+                                                        4=centre slice
+                                                        5=overall centring
+                                                        6=tube centring
+                                                      +10=printing removed means
+ INORM     10     0  Normalisation                      0=no
+                                                        1=per frontal slice
+                                                        2=per lateral slice
+                                                      +10=printing removed SSQs
+  MAX      15    50  Maximum number of iterations       0=50
+
+ IEPS      20     8  Convergence criterion for loss function
+                                                        0=8=default = 1E-8
+ IRELAX    25     0  Use acceleration   techniques      0=no,1=yes
+ IMISS     30     0  Missing data                       0=no,1=2=yes
+                                                        Type of starting values:
+                                                        1=frontal slice means
+                                                        2=user supplied values
+                                                        11,12=+echo coordinates
+ IEXA      35     0  Initial configuration first mode   0=Tucker, not fixed
+                                                        1=external, fixed
+                                                        2=external, not fixed
+                                                        3=random, not fixed
+ IEXB      40     0  Initial configuration second mode  as IEXA
+ IEXC      45     0  Initial configuration third mode   as IEXA
+ ISEED     55          0  External random seed number   0=internally determined
+
+
+ RECORD 5      LABELS FOR THE THREE MODES -- (DEFAULT=BLANK)
+
+ LABA      12      Schooling   
+ LABB      24      NumSiblings 
+ LABC      36      Happyness   
+
+ RECORD 6 VARIABLE INPUT FORMAT -- (OBLIGATORY)
+
+ FMT       80 (10X,5F11.8)                                                            
+
+ Labels will be read from file:                     
+ D:\3WEGDATA\ANDERSON\CLOGGH~1\HAPPYRES.LAB                                     
+
+ Components and core array will be written to file: 
+ D:\3WEGDATA\ANDERSON\CLOGGH~1\HAPPY_T3.CPC                                     
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                              I N P U T   D A T A
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+ First five and last five lines of the input file:
+
+      1   -3.3675   -2.8826    -.7283   -1.3227    4.6927
+      2    -.1448    1.3245    1.4683    -.3050    -.8595
+      3    2.5437    1.4414     .6576   -1.3914   -2.9978
+      4    5.1975    1.6757   -1.3953    -.7905    -.6255
+      5   -4.9656   -3.4373    1.0158    3.3815    3.8368
+
+
+      8    2.1749     .3520    -.3271   -1.9369   -2.5401
+      9   -1.4293     .2344    2.4386    1.9095    7.1974
+     10   -1.7840   -1.2755    -.4720     .9645   -1.0872
+     11   -1.0072    -.6880   -1.6916    -.9893   -1.6580
+     12     .0486   -1.1822    -.1673   -1.2704    -.6355
+ Total number of data points        60
+
+ Original total sum of squares - SS(Total) is           328.5674562
+ Execution time for input is      .050 seconds
+ Execution time for computing initial configurations is      .000 seconds
+
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+ TUCKALS3 - V5.2 (1-1-1996) *** Copyright: P.M.KROONENBERG, Leiden University
+                       Date: 17-08-1999 ; Time: 08:31:14
+ Intermediate step for Anacor3                                           
+
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+                           M A I N   A N A L Y S I S
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+
+ Last step of iteration procedure:
+    28    36.61528         .00000000     .00000001     .00000000     .00000000
+
+ Execution time for main iterations is      .000 seconds
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     C O N V E R G E N C E   R E S U L T S
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      Convergence of the fitted sum of squares
+      Convergence of first-mode component matrix (A)
+      Convergence of second-mode component matrix (B)
+      Convergence of third -mode component matrix (C)
+
+ Number of data points                                              60
+ Number of parameters                                               29
+ Degrees of freedom                                                 31
+
+ The degrees-of-freedom are calculated as the number of data points
+ (minus loss of information due to preprocessing or missing data)
+ minus the number of independent parameters
+ No corrections have been made for EXTERNAL preprocessing.
+
+ Number of independent parameters =
+ (I*P) + (J*Q) + (K*R) + (P*Q*R) - P**2 - Q**2 - R**2
+ with I, J, K the numbers of levels of 1st, 2nd, and 3rd modes, respectively,
+ and P, Q, R the numbers of components of 1st, 2nd, and 3rd modes, respectively.
+
+ Number of iterations           28
+                                Raw SS         Standardized SS        Mean SS
+
+
+ SS(Total)                     328.567             1.0000              5.4761
+ A.EST.SS(Fit)                 323.068              .9833
+ B.EST.SS(Fit)                 314.483              .9571
+ C.EST.SS(Fit)                 296.116              .9012
+
+ SS(Fit)                       291.952              .8886              4.8659
+ SS(Residual)                   36.615              .1114               .6103
+ SS(Fit) - A.EST.SS(Fit)        31.116              .0947
+ SS(Fit) - B.EST.SS(Fit)        22.531              .0686
+ SS(Fit) - C.EST.SS(Fit)         4.164              .0127
+
+ Increment in fit                3.239              .0099
+
+ ********** NOTES:
+ 1. The Est.SS(FIT) based on A(B,C) is an approximation of the amount of
+    variation explained by the components of a two-mode principal component
+    analysis on the combination-mode matrix with the first  (second,third)
+    mode as columns.
+    The fitted sum of squares -SS(Fit)- will always be smaller than or equal to
+    the smallest of the A.Est.SS(Fit) and B.Est.SS(Fit) and C.Est.SS(Fit).
+    Sometimes, due to the crude approximations, the SS(Fit) might be slightly
+    larger, resulting in a negative difference between the SS(Fit) and
+    A (B,C).Est.SS(Fit).
+
+ 2. Standardized quantities have been divided by SS(Total).  
+
+ 3. SS(Total) = SS(Fit) + SS(Residual).
+
+ 4. The increment in fit indicates the improvement by iteration in the SS(Fit)
+    over the SS(Fit) derived from the initial configurations of the components.
+
+ 5. The mean-squares are the SS(Tot)[SS(Fit), SS(Res)] divided by I*J*K.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                              C O M P O N E N T S
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+ Component loadings of mode   1          Schooling   
+
+                                     Scaling of components
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  NR.  L  Label      UNIT length          UNIT Mean square      StandardÄP.C.A. 
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 1 <12   ³ -.756 -.645 -.027  ³  -1.511-1.290 -.055  ³  -1.351 -.311 -.010
+     2 2 12    ³  .210 -.303 -.769  ³    .419 -.605-1.539  ³    .374 -.146 -.275
+     3 3 13-16 ³  .520 -.484 -.137  ³   1.039 -.969 -.273  ³    .929 -.233 -.049
+     4 4 17+   ³  .339 -.508  .623  ³    .678-1.016 1.247  ³    .606 -.245  .223
+
+ ********** NOTES:
+ Components in first loading matrix are orthonormal;          
+ in the other matrices orthogonal.                            
+
+ Unit MSQ-scaled components have lengths equal to the number of levels.
+ PCA-scaled components have lengths equal to the number of levels times
+ the standardized weights. Similar to two-mode PCA.
+
+
+ Standardized component weights of mode   1
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .7987     .0580     .0319
+ 
+
+ ********** NOTES:
+ The weights are standardized by division through SS(Total). 
+ Each weight represents the proportion of variation explained.
+ The weights sum to the standardized SS(Fit)                 
+
+
+ Sums of components
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .3125   -1.9398    -.3098
+ 
+
+
+ Component loadings of mode 1 *     Unit-length components              * 
+ Component  1  (HOR.) versus component  2  (VERT.)
+  
+        ÚÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄ¿
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .000Ãù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                                  ´
+        ³                                  ù        2                         ³
+        ³                                  ù                                  ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                      3           ³
+   -.500Ã                                  ù              4                   ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.625Ã 1                                ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ÀÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÙ
+         -.75       -.50       -.25        .00        .25        .50        .75
+  
+
+
+ Component loadings of mode 1 *     Unit-length components              * 
+ Component  1  (HOR.) versus component  3  (VERT.)
+  
+        ÚÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄ¿
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .625Ã                                  ù              4                   ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .000Ãù1ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.125Ã                                  ù                      3           ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.750Ã                                  ù        2                         ´
+        ³                                  ù                                  ³
+        ÀÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÙ
+         -.75       -.50       -.25        .00        .25        .50        .75
+  
+
+
+ Component loadings of mode 1 *     Unit-length components              * 
+ Component  2  (HOR.) versus component  3  (VERT.)
+  
+        ÚÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄ¿
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .625Ã            4                     ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .000Ãù ù ù 1 ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.125Ã             3                    ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.750Ã                     2            ù                                  ´
+        ³                                  ù                                  ³
+        ÀÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÙ
+         -.75       -.50       -.25        .00        .25        .50        .75
+  
+
+ Component loadings of mode   2          NumSiblings 
+
+                                     Scaling of components
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  NR.  L  Label      UNIT length          UNIT Mean square      StandardÄP.C.A. 
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 1 0-1   ³ -.584  .524 -.468  ³  -1.306 1.172-1.045  ³  -1.124  .405 -.175
+     2 2 2-3   ³ -.330  .477  .607  ³   -.738 1.068 1.358  ³   -.636  .369  .227
+     3 3 4-5   ³  .106  .402  .196  ³    .236  .898  .438  ³    .204  .310  .073
+     4 4 6-7   ³  .236  .104  .526  ³    .528  .233 1.176  ³    .454  .080  .196
+     5 5 8+    ³  .695  .570 -.313  ³   1.555 1.275 -.699  ³   1.339  .440 -.117
+
+ Standardized component weights of mode   2
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .7414     .1193     .0279
+ 
+
+ Sums of components
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .1229    2.0776     .5487
+ 
+
+
+ Component loadings of mode 2 *     Unit-length components              * 
+ Component  1  (HOR.) versus component  2  (VERT.)
+  
+        ÚÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄ¿
+    .875Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                           5      ³
+    .500Ã           1                      ù                                  ´
+        ³                     2            ù                                  ³
+        ³                                  ù                                  ³
+    .375Ã                                  ù   3                              ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù         4                        ³
+        ³                                  ù                                  ³
+    .000Ãù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.750Ã                                  ù                                  ´
+        ÀÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÙ
+          -.8 -.7 -.6 -.5 -.4 -.3 -.2 -.1  .0  .1  .2  .3  .4  .5  .6  .7  .8  
+  
+
+
+ Component loadings of mode 2 *     Unit-length components              * 
+ Component  1  (HOR.) versus component  3  (VERT.)
+  
+        ÚÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄ¿
+    .875Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .625Ã                                  ù                                  ´
+        ³                     2            ù                                  ³
+        ³                                  ù                                  ³
+    .500Ã                                  ù         4                        ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù   3                              ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .000Ãù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                           5      ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.500Ã           1                      ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.750Ã                                  ù                                  ´
+        ÀÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÙ
+          -.8 -.7 -.6 -.5 -.4 -.3 -.2 -.1  .0  .1  .2  .3  .4  .5  .6  .7  .8  
+  
+
+
+ Component loadings of mode 2 *     Unit-length components              * 
+ Component  2  (HOR.) versus component  3  (VERT.)
+  
+        ÚÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄ¿
+    .875Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .625Ã                                  ù                                  ´
+        ³                                  ù                  2               ³
+        ³                                  ù                                  ³
+    .500Ã                                  ù   4                              ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù               3                  ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+    .000Ãù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                      5           ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.500Ã                                  ù                    1             ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+        ³                                  ù                                  ³
+   -.750Ã                                  ù                                  ´
+        ÀÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÙ
+          -.8 -.7 -.6 -.5 -.4 -.3 -.2 -.1  .0  .1  .2  .3  .4  .5  .6  .7  .8  
+  
+
+ Component loadings of mode   3          Happyness   
+
+                                     Scaling of components
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  NR.  L  Label      UNIT length          UNIT Mean square      StandardÄP.C.A. 
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 1 Hap-  ³  .572 -.225        ³    .991 -.389        ³    .837 -.163
+     2 2 Hap+  ³  .738 -.279        ³   1.278 -.483        ³   1.080 -.201
+     3 3 Hap++ ³  .358  .934        ³    .620 1.617        ³    .524  .675
+
+ Standardized component weights of mode   3
+       ³     1         2
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .7143     .1743
+ 
+
+ Sums of components
+       ³     1         2
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³    1.6680     .4304
+ 
+
+
+ Component loadings of mode 3 *     Unit-length components              * 
+ Component  1  (HOR.) versus component  2  (VERT.)
+  
+        ÚÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄ¿
+        ³                                  ù                                  ³
+   1.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+   1.000Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .875Ã                                  ù            3                     ´
+        ³                                  ù                                  ³
+    .750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .250Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+    .000Ãù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù´
+        ³                                  ù                                  ³
+   -.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+   -.250Ã                                  ù                    1             ´
+        ³                                  ù                          2       ³
+   -.375Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+   -.500Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+   -.625Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+   -.750Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+   -.875Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+  -1.000Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+  -1.125Ã                                  ù                                  ´
+        ³                                  ù                                  ³
+  -1.250Ã                                  ù                                  ´
+        ÀÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÙ
+               -.75     -.50     -.25      .00      .25      .50      .75      
+  
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                             C O R E   M A T R I X
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+                           FRONTAL SLICES OF CORE MATRIX
+                           ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+        Down: Schooling    components ÄÄÄÄ Across: NumSiblings  components
+       ³                                           ³
+       ³               Unstandardized              ³       Proportion
+       ³                 Core slice                ³  Explained variation
+
+                        FRONTAL SLICE (Happyness   )   1
+                        ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+       ³      NumSiblings  Components              ³  NumSiblings  Components
+       ³       1         2         3         4     ³   1     2     3     4 
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ Scho 1³    -14.999     -.034      .080            ³  .685  .000  .000
+ Scho 2³       .128     -.313     1.080            ³  .000  .000  .004
+ Scho 3³      -.435      .819    -2.750            ³  .001  .002  .023
+
+                        FRONTAL SLICE (Happyness   )   2
+                        ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ Scho 1³       .147    -6.096     -.501            ³  .000  .113  .001
+ Scho 2³     -4.197     -.410      .100            ³  .054  .001  .000
+ Scho 3³      -.893     1.042     -.402            ³  .002  .003  .000
+
+ EXPLAINED SUMS OF SQUARES OF COMPONENTS (based on the core matrix)
+ Mode              SUM    1     2     3     4     5     6     7    8
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ 1 Schooling     .88856    .799  .058  .032
+ 2 NumSiblings   .88856    .741  .119  .028
+ 3 Happyness     .88856    .714  .174
+
+ TOTAL EXPLAINED   .88856
+ The total explained sum of squares (or variability) of the core matrix
+ is equal to the standardized SS(Fit)
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ Horizontal slices of core matrix down: NumSiblings  across: Happyness   
+
+           HORIZONTAL SLICE (Schooling   )   1
+       ³     1         2
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³  -14.9992     .1474
+     2 ³    -.0337   -6.0959
+     3 ³     .0799    -.5008
+ 
+
+           HORIZONTAL SLICE (Schooling   )   2
+       ³     1         2
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .1285   -4.1968
+     2 ³    -.3135    -.4099
+     3 ³    1.0796     .1005
+ 
+
+           HORIZONTAL SLICE (Schooling   )   3
+       ³     1         2
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³    -.4353    -.8932
+     2 ³     .8189    1.0420
+     3 ³   -2.7495    -.4019
+ 
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ Lateral slices of core matrix down: Happyness    across: Schooling   
+
+           LATERAL SLICE (NumSiblings )   1
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³  -14.9992     .1285    -.4353
+     2 ³     .1474   -4.1968    -.8932
+ 
+
+           LATERAL SLICE (NumSiblings )   2
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³    -.0337    -.3135     .8189
+     2 ³   -6.0959    -.4099    1.0420
+ 
+
+           LATERAL SLICE (NumSiblings )   3
+       ³     1         2         3
+ ÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     1 ³     .0799    1.0796   -2.7495
+     2 ³    -.5008     .1005    -.4019
+ 
+
+ ********** NOTES:
+ The sum over all squared elements of the core matrix is equal to the SS(Fit).
+ The square of each core element is thus its contribution to the SS(Fit).
+
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+ TUCKALS3 - V5.2 (1-1-1996) *** Copyright: P.M.KROONENBERG, Leiden University
+                       Date: 17-08-1999 ; Time: 08:31:15
+ Intermediate step for Anacor3                                           
+
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+               S U P P L E M E N T A R Y   I N F O R M A T I O N
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                         A N A L Y S I S   O F   F I T
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+ Sums of squares of each level of mode 1 (Schooling   )
+
+      º   ³      º          ³STANDARDº   RAW    ³STANDARD³  PROP  º  MEAN   ³
+   NR º L ³ LABELº SS(TOT)  ³ SS(TOT)º SS(RES)  ³ SS(RES)³ SS(RES)º SS(RES) ³
+ ÄÄÄÄÄ×ÄÄÄÅÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ´ÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄ´
+     1º 1 ³<12   º   171.104³    .521º    13.289³    .040³    .078º    .8859³
+     2º 2 ³12    º    26.987³    .082º     7.528³    .023³    .279º    .5018³
+     3º 3 ³13-16 º    79.081³    .241º     3.583³    .011³    .045º    .2388³
+     4º 4 ³17+   º    51.396³    .156º    12.216³    .037³    .238º    .8144³
+ ÄÄÄÄÄ×ÄÄÄÅÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ´ÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄ´
+      º 5 ³      º   328.567³   1.000º    36.615³        ³    .111º   2.4410³
+
+
+ Sums of squares of each level of mode 2 (NumSiblings )
+
+      º   ³      º          ³STANDARDº   RAW    ³STANDARD³  PROP  º  MEAN   ³
+   NR º L ³ LABELº SS(TOT)  ³ SS(TOT)º SS(RES)  ³ SS(RES)³ SS(RES)º SS(RES) ³
+ ÄÄÄÄÄ×ÄÄÄÅÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ´ÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄ´
+     1º 1 ³0-1   º   105.927³    .322º    10.119³    .031³    .096º    .8433³
+     2º 2 ³2-3   º    41.286³    .126º     2.436³    .007³    .059º    .2030³
+     3º 3 ³4-5   º    17.680³    .054º     8.283³    .025³    .468º    .6902³
+     4º 4 ³6-7   º    27.661³    .084º    11.144³    .034³    .403º    .9287³
+     5º 5 ³8+    º   136.013³    .414º     4.633³    .014³    .034º    .3861³
+ ÄÄÄÄÄ×ÄÄÄÅÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ´ÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄ´
+      º 6 ³      º   328.567³   1.000º    36.615³        ³    .111º   3.0513³
+
+ The line from the point (0,0) through the plot symbol (6) with coordinates
+ (  58.390,   7.323) separates the ILL-FITTING points (above the line)
+ from the WELL-FITTING points (below the line).
+ Lines at an angle of -45 degrees are loci of points with equal SS(TOT)
+
+
+ SS(FIT) (HORIZ.) versus SS(RES) (VERTIC.) for mode 2 (NumSiblings ).
+  
+        ÚÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄ¿
+      12Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+      11Ã ù       4                                                           ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+      10Ã ù                                               1                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+       9Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù    3                                                              ³
+       8Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                            6                                      ³
+       7Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+       6Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+       5Ã ù                                                                   ´
+        ³ ù                                                                 5 ³
+        ³ ù                                                                   ³
+       4Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+       3Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                   2                                               ³
+       2Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+       1Ã ù                                                                   ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+       0Ã ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ù ´
+        ³ ù                                                                   ³
+        ³ ù                                                                   ³
+      -1Ã ù                                                                   ´
+        ÀÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÙ
+          0   10   20   30   40   50   60   70   80   90  100  110  120  130   
+  
+
+ Sums of squares of each level of mode 3 (Happyness   )
+
+      º   ³      º          ³STANDARDº   RAW    ³STANDARD³  PROP  º  MEAN   ³
+   NR º L ³ LABELº SS(TOT)  ³ SS(TOT)º SS(RES)  ³ SS(RES)³ SS(RES)º SS(RES) ³
+ ÄÄÄÄÄ×ÄÄÄÅÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ´ÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄ´
+     1º 1 ³Hap-  º   101.402³    .309º    21.689³    .066³    .214º   1.0845³
+     2º 2 ³Hap+  º   145.004³    .441º    12.758³    .039³    .088º    .6379³
+     3º 3 ³Hap++ º    82.161³    .250º     2.168³    .007³    .026º    .1084³
+ ÄÄÄÄÄ×ÄÄÄÅÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄ´ÄÄÄÄÄÄÄÄ×ÄÄÄÄÄÄÄÄÄ´
+      º 4 ³      º   328.567³   1.000º    36.615³        ³    .111º   1.8308³
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                            E N D   O F   P R O G R A M               
+ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
